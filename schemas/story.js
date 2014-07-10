@@ -24,7 +24,7 @@ StorySchema.statics = {
   },
   findByKeyword: function(keyword, cb) {
     return this
-    .findOne({title: {$regex : ".*" + keyword + ".*"}})
+    .find({title: {$regex : ".*" + keyword + ".*"}})
     .exec(cb)
   },
   saveAll: function(dataArr) {

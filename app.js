@@ -28,22 +28,33 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 // Route Begin
-app.get('/', home.index);
+app.get('/admin', home.admin);
 
-app.get("/query", query.response);
+app.get("/search", function(req, res) {
+  var keyword = req.query.q
+  Story.findByKeyword(keyword, function (err, stories) {
+    if (err) {
+      console.log(err)
+    }
+    res.render('index', {
+      title: '查询: ' + keyword,
+      stories: stories
+    })
+  })
+})
 
 app.get("/clearRedis", query.clearRedis);
 
 app.get("/fetch", spider.fetch);
 
-app.get("/list", function (req, res) {
+app.get("/", function (req, res) {
 
     Story.fetch(function(err, stories) {
     if (err) {
       console.log(err)
     }
-    res.render('list', {
-      title: 'list page',
+    res.render('index', {
+      title: '无中介租房',
       stories: stories
     })
   })

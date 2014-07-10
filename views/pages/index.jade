@@ -3,5 +3,33 @@ extends ../layout
 block content
   .container
     .row
-      button.fetch(type="button") Fetch
-  script(src='/js/fetch.js')
+      nav.navbar.navbar-default(role="navigation")
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li: a(href="#") 最新
+            li.dropdown
+              a.dropdown-toggle(href="#", class="dropdown-toggle", data-toggle="dropdown") 地铁
+                span.caret
+              ul.dropdown-menu(role="menu")
+                li: a(href="#") 1号线
+                li: a(href="#") 2号线
+                li: a(href="#") 4号线
+                li: a(href="#") 5号线
+                li: a(href="#") 6号线
+                li: a(href="#") 8号线
+                li: a(href="#") 9号线
+                li: a(href="#") 10号线
+                li: a(href="#") 13号线
+                li: a(href="#") 昌平线
+                li: a(href="#") 八通线
+                li: a(href="#") 亦庄线
+                li: a(href="#") 房山线
+
+          form.navbar-form.navbar-left(role="search", method="get", action="/search")
+            div.form-group
+              input.form-control(type="text", placeholder="搜索", name="q")
+      table.table.table-striped
+        tbody
+          each story in stories
+            tr(class="story-id-#{story._id}")
+              td: a(target="_blank", href="#{story.url}") #{story.title}
